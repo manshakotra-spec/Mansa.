@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: n8n-ai-assistant
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: VUE_APP_GEMINI_API_KEY
+        sync: false
+      - key: VUE_APP_API_URL
+        value: https://n8n-ai-assistant.onrender.com
+    healthCheckPath: /health
+    health_check_interval: 30
