@@ -1,13 +1,81 @@
 services:
   - type: web
-    name: n8n-ai-assistant
+    name: mansa-app
     runtime: node
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    region: oregon
+    plan: free
+    
+    buildCommand: |
+      npm install -g pnpm
+      pnpm install
+      pnpm run build
+    
+    startCommand: pnpm run start
+    
     envVars:
+      - key: NODE_ENV
+        value: production
+      
+      - key: PORT
+        value: 5678
+      
+      - key: DB_TYPE
+        value: sqlite
+      
+      - key: DB_SQLITE_DATABASE_FILE
+        value: /tmp/n8n.db
+      
       - key: VUE_APP_GEMINI_API_KEY
         sync: false
-      - key: VUE_APP_API_URL
-        value: https://n8n-ai-assistant.onrender.com
-    healthCheckPath: /health
-    health_check_interval: 30
+      
+      - key: VUE_APP_ENABLE_AI_ASSISTANT
+        value: true
+      
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: true
+      
+      - key: N8N_BASIC_AUTH_USER
+        value: admin
+      
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false
+      
+      - key: N8N_PROTOCOL
+        value: https
+      
+      - key: N8N_HOST
+        fromService:
+          name: mansa-app
+          property: host
+      
+      - key: N8N_LOG_LEVEL
+        value: info
+      
+      - key: FEATURE_FLAGS_n8n_aigeneration
+        value: true
+      
+      - key: FEATURE_FLAGS_workflowHistory
+        value: true
+      
+      - key: ENCRYPTION_KEY
+        sync: false
+      
+      - key: JWT_SECRET
+        sync: false
+    
+    healthCheckPath: /api/health
+    healthCheckInterval: 30
+    maxInstanceCount: 1
+    
+    disk:
+      name: mansa-storage
+      mountPath: /tmp
+      sizeGB: 5
+
+databases:
+  - name: mansa-postgres
+    databaseName: n8n_db
+    user: postgres
+    region: oregon
+    plan: free
+    postgresMajorVersion: 15

@@ -1,0 +1,40 @@
+# Add environment files
+.env
+.env.local
+.env.*.local
+
+# Node modules
+node_modules/
+.pnpm-store/
+
+# Build files
+dist/
+build/
+.turbo/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.db
+*.sqlite
+
+# Temporary
+/tmp/
+.cache/
