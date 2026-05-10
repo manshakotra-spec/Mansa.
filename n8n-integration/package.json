@@ -1,0 +1,29 @@
+{
+  "name": "n8n-mansa-integration",
+  "version": "2.20.0",
+  "description": "N8N Workflow Automation with AI Assistant Integration",
+  "private": true,
+  "engines": {
+    "node": ">=22.16",
+    "pnpm": ">=10.22.0"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "install:deps": "pnpm install",
+    "build": "echo 'Build would run here'",
+    "dev": "echo 'Dev server would start here'",
+    "test": "echo 'Tests would run here'",
+    "start": "echo 'Server would start here'",
+    "setup": "bash setup.sh"
+  },
+  "keywords": [
+    "n8n",
+    "workflow",
+    "automation",
+    "ai",
+    "gemini",
+    "integration"
+  ],
+  "author": "manshakotra-spec",
+  "license": "Fair-code"
+}
