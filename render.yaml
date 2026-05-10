@@ -6,8 +6,8 @@ services:
     plan: free
     
     buildCommand: |
-      npm install -g pnpm
-      pnpm install
+      npm install -g pnpm@10.32.1
+      pnpm install --frozen-lockfile
       pnpm run build
     
     startCommand: pnpm run start
@@ -71,11 +71,3 @@ services:
       name: mansa-storage
       mountPath: /tmp
       sizeGB: 5
-
-databases:
-  - name: mansa-postgres
-    databaseName: n8n_db
-    user: postgres
-    region: oregon
-    plan: free
-    postgresMajorVersion: 15

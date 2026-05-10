@@ -2,20 +2,20 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Install pnpm
+# Install pnpm globally
 RUN npm install -g pnpm@10.32.1
 
-# Copy package files
-COPY package*.json pnpm-lock.yaml ./
+# Copy package files first
+COPY package*.json pnpm-lock.yaml* ./
 
-# Install dependencies
+# Install dependencies with pnpm
 RUN pnpm install --frozen-lockfile --prod
 
-# Copy source code
+# Copy all source files
 COPY src ./src
 COPY public ./public
 COPY scripts ./scripts
-COPY tsconfig.json vite.config.ts ./
+COPY tsconfig.json tsconfig.node.json vite.config.ts ./
 
 # Build application
 RUN pnpm run build
@@ -23,7 +23,7 @@ RUN pnpm run build
 # Expose port
 EXPOSE 5678
 
-# Health check
+# Create health check endpoint
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://localhost:5678/api/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
 
