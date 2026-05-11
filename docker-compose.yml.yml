@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  n8n:
+    build: .
+    ports:
+      - "7860:7860"
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=7860
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+
+      # AI Keys
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+
+      # Basic Auth
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin123
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
