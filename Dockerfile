@@ -5,11 +5,11 @@ WORKDIR /app
 # Install pnpm globally
 RUN npm install -g pnpm@10.32.1
 
-# Copy package files first
-COPY package*.json pnpm-lock.yaml* ./
+# Copy package files
+COPY package*.json ./
 
 # Install dependencies with pnpm
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --prod
 
 # Copy all source files
 COPY src ./src

@@ -7,7 +7,7 @@ services:
     
     buildCommand: |
       npm install -g pnpm@10.32.1
-      pnpm install --frozen-lockfile
+      pnpm install --prod
       pnpm run build
     
     startCommand: pnpm run start
